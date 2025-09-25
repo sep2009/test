@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Blog</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: #fff;
+      color: #333;
+    }
+
+    /* ---------- Navbar ---------- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.8rem 5%;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.8rem;
+    }
+
+    .menu {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .menu li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .search-icon {
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .write-btn {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- Hero Section ---------- */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 7rem 5% 2rem;
+    }
+
+    .hero-text h1 {
+      font-size: 6rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #666;
+    }
+
+    .hero-buttons button {
+      margin-right: 1.4rem;
+      padding: 1rem 1.6rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+
+    .hero-buttons .primary {
+      background: #3bbf9f;
+      color: white;
+    }
+
+    .hero-buttons .secondary {
+      background: #fff;
+      border: 1px solid #333;
+    }
+
+    .hero-image img {
+      max-width: 450px;
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    /* ---------- Featured Posts ---------- */
+    .featured {
+      padding: 2rem 5%;
+    }
+
+    .featured h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #f5f5f5;
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 350px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 0.8rem;
+    }
+
+    .card .tag {
+      display: inline-block;
+      background: red;
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      flex-grow: 1;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* ---------- Recent Posts & Sidebar ---------- */
+    .content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      padding: 2rem 5%;
+    }
+
+    .recent h2 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .recent .post {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .recent .post img {
+      border-radius: 10px;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
+
+    .recent .post h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .recent .post p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .sidebar input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar h3 {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 0.4rem 0;
+      font-size: 0.95rem;
+    }
+
+    .sidebar p {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .popular-post {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.popular-post img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-buttons button {
+        margin: 0.5rem 0;
+      }
+      .menu {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">Blog</div>
+      <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="search-icon">🔍</span>
+        <button class="write-btn">Write</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>My Blog</h1>
+      <p>A place where I share my thoughts and ideas.</p>
+      <div class="hero-buttons">
+        <button class="primary">Read latest</button>
+        <button class="secondary">Subscribe</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src=unsplash_OdFtpBn0sPM.png alt="Hero Image">
+    </div>
+  </section>
+
+  <!-- Featured Posts -->
+  <section class="featured">
+    <h2>Featured Posts</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="unsplash_lP5PjTeUqHE.png" alt="Mountains">
+        <span class="tag">Travel</span>
+        <h3>A Journey Through the Mountains</h3>
+        <p>March 10 · 5 min read</p>
+      </div>
+      <div class="card">
+        <img src="Rectangle 5.png" alt="Photography">
+        <span class="tag">Photography</span>
+        <h3>Capturing the Perfect Moment</h3>
+        <p>March 5 · 4 min read</p>
+      </div>
+      <div class="card">
+        <img src="unsplash_29Kj97jfI2s.png" alt="Lifestyle">
+        <span class="tag">Lifestyle</span>
+        <h3>Healthy Living: Tips and Tricks</h3>
+        <p>March 28 · 3 min read</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Posts & Sidebar -->
+  <section class="content">
+    <div class="recent">
+      <h2>Recent Posts</h2>
+      <div class="post">
+        <img src="unsplash_oOmwruKXv5U.png" alt="Exercise">
+        <div>
+          <h3>The Benefits of Regular Exercise</h3>
+          <p>Health · Fitness</p>
+        </div>
+      </div>
+      <div class="post">
+        <img src="unsplash_ciYOQZ7eKQ4.png" alt="City">
+        <div>
+          <h3>Exploring the City’s Hidden Gems</h3>
+          <p>Travel · Urban</p>
+        </div>
+      </div>
+      <div class="post">
+        <img src="unsplash_A5rCN8626Ck.png" alt="Food">
+        <div>
+          <h3>Delicious Vegetarian Recipes</h3>
+          <p>Health · Food</p>
+        </div>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <input type="text" placeholder="Search">
+      <h3>Categories</h3>
+      <ul>
+        <li>Travel</li>
+        <li>Photography</li>
+        <li>Lifestyle</li>
+        <li>Health</li>
+        <li>Food</li>
+      </ul>
+      <h3>Popular Post</h3>
+<div class="popular-post">
+  <img src="unsplash_T7K4aEPoGGk.png" alt="Popular">
+  <p>A Journey.Through <br>the Mountains</p>
+</div>
+
+  </section>
+
+</body>
+</html>
